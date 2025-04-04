@@ -88,9 +88,9 @@ class App extends React.Component<Props, GameState> {
        */
       return (
         <div key={index}>
-          <a href='/' onClick={this.play(cell.x, cell.y)}>
+          
             <BoardCell cell={cell}></BoardCell>
-          </a>
+          
         </div>
       )
     else

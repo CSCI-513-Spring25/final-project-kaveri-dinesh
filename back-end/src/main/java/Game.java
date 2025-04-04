@@ -59,20 +59,7 @@ public class Game {
     }
 
     public Player getWinner() {
-        for (int row = 0; row < 10; row++)
-            if (board.getCell(row, 0) != null && board.getCell(row, 0) == board.getCell(row, 1)
-                    && board.getCell(row, 1) == board.getCell(row, 2))
-                return board.getCell(row, 0);
-        for (int col = 0; col < 10; col++)
-            if (board.getCell(0, col) != null && board.getCell(0, col) == board.getCell(1, col)
-                    && board.getCell(0, col) == board.getCell(2, col))
-                return board.getCell(0, col);
-        if (board.getCell(1, 1) != null && board.getCell(0, 0) == board.getCell(1, 1)
-                && board.getCell(1, 1) == board.getCell(2, 2))
-            return board.getCell(1, 1);
-        if (board.getCell(1, 1) != null && board.getCell(0, 2) == board.getCell(1, 1)
-                && board.getCell(1, 1) == board.getCell(2, 0))
-            return board.getCell(1, 1);
+        
         return null;
     }
 }

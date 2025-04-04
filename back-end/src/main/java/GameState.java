@@ -53,6 +53,7 @@ public class GameState {
                 cells[10 * y + x] = new Cell(x, y, text, playable);
             }
         }
+        cells[10]=new Cell(2,10,"P",false);
         return cells;
     }
 }

@@ -62,7 +62,7 @@ class App extends React.Component<Props, GameState> {
       const response = await fetch(`/play?x=${x}&y=${y}`)
       const json = await response.json();      
       this.currentPlayer = json['currentPlayer'];
-      this.winner = json['winner'];
+      
        console.log(this.winner);
       this.setState({ cells: json['cells'] });
     }
@@ -74,7 +74,7 @@ class App extends React.Component<Props, GameState> {
       const response = await fetch(`/undo`)
       const json = await response.json();
       this.currentPlayer = json['currentPlayer'];
-      this.winner=''
+      
       this.setState({cells: json['cells']});
     }
 
@@ -88,9 +88,7 @@ class App extends React.Component<Props, GameState> {
        */
       return (
         <div key={index}>
-          
             <BoardCell cell={cell}></BoardCell>
-          
         </div>
       )
     else
@@ -128,12 +126,7 @@ class App extends React.Component<Props, GameState> {
      */
     return (
       <div>
-        <div id="instructions" className="instructions">
-        <div>Current Player: {this.currentPlayer}</div>
-        { this.winner!='null' && this.winner!='' &&
-          (<div id="winner">Winner: {this.winner}</div>)
-        }        
-        </div>       
+            
         <div id="board">
           {this.state.cells.map((cell, i) => this.createCell(cell, i))}
         </div>

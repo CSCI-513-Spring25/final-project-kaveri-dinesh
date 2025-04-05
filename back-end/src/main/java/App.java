@@ -23,7 +23,7 @@ public class App extends NanoHTTPD {
     public App() throws IOException {
         super(8080);
 
-        this.game = new Game();
+        //this.game = new Game();
 
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
         System.out.println("\nRunning!\n");
@@ -37,10 +37,10 @@ public class App extends NanoHTTPD {
             this.game = new Game();
         } else if (uri.equals("/play")) {
             // e.g., /play?x=1&y=1
-            this.game = this.game.play(Integer.parseInt(params.get("x")), Integer.parseInt(params.get("y")));
+            //this.game = this.game.play(Integer.parseInt(params.get("x")), Integer.parseInt(params.get("y")));
         }else if(uri.equals("/undo")){
-            this.game=this.game.undo();
-            System.out.println("Calling undo");            
+            // this.game=this.game.undo();
+            // System.out.println("Calling undo");            
         }
         // Extract the view-specific data from the game and apply it to the template.
         GameState gameplay = GameState.forGame(this.game);

@@ -8,15 +8,10 @@ interface Props {
 
 class BoardCell extends React.Component<Props> {
   render(): React.ReactNode {
-    const playable = this.props.cell.playable ? 'playable' : '';
-    var cellPlayed = '';
-    if(this.props.cell.text=='X'){
-      cellPlayed='PLAYER0'
-    }
-    else if(this.props.cell.text=='O')cellPlayed='PLAYER1'
-    if(this.props.cell.text!='P')
+    
+    if(this.props.cell.text!='C')
     return (
-      <div className={`cell ${playable} ${cellPlayed}` }>{this.props.cell.text}</div>
+      <div className={`cell ` }>{this.props.cell.text}</div>
     )
     else 
       return (   

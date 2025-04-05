@@ -1,65 +1,26 @@
-
-
-import java.util.ArrayList;
-import java.util.List;
-
-enum Player {
-    PLAYER0(0), PLAYER1(1);
-
-    final int value;
-
-    Player(int value) {
-        this.value = value;
-    }
-}
-
+import java.util.Arrays;
 public class Game {
-    private final Board board;
-    private final Player player;
-    private final List<Game> history;
-
-    public Game() {
-        this(new Board(), Player.PLAYER0);
+    private static char[][] grid=new char[10][10];  
+    private ColumbusShip ship;  
+    public static void updateGrid(int x,int y,char value){
+        grid[y][x]=value;
     }
-
-    public Game(Board board, Player nextPlayer) {
-        this(board, nextPlayer, List.of());
+    public Game(){
+        if(ship==null)ship=new ColumbusShip();
+        initializeGrid();
     }
-
-    public Game(Board board, Player nextPlayer, List<Game> history) {
-        this.board = board;
-        this.player = nextPlayer;
-        this.history = history;
-    }
-
-    public Board getBoard() {
-        return this.board;
-    }
-
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public Game play(int x, int y) {
-        if (this.board.getCell(x, y) != null)
-            return this;
-        if (this.getWinner() != null)
-            return this;
-        List<Game> newHistory = new ArrayList<>(this.history);
-        newHistory.add(this);
-        Player nextPlayer = this.player == Player.PLAYER0 ? Player.PLAYER1 : Player.PLAYER0;
-        return new Game(this.board.updateCell(x, y, this.player), nextPlayer, newHistory);
-    }
-
-    public Game undo(){
-        List<Game>newHistory = new ArrayList<>(this.history);   
-        Game lastGame = newHistory.getLast();        
-        newHistory.removeLast();        
-        return new Game(lastGame.getBoard(),lastGame.getPlayer(),newHistory);
-    }
-
-    public Player getWinner() {
+    public char[][] initializeGrid(){  
+        for(int i=0;i<grid.length;i++)Arrays.fill(grid[i],' ') ;
         
-        return null;
+        grid[ship.getY()][ship.getX()]='C';    
+        System.out.println(grid[ship.getY()][ship.getX()]);
+        return grid;
+    }
+    public static char[][] getGrid(){
+        
+        return grid;
+    }
+    public ColumbusShip getColumbusShip(){
+        return ship;
     }
 }

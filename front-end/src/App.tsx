@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css'; // import the css file to enable your styles.
 import { GameState, Cell } from './game';
 import BoardCell from './Cell';
+import { Console } from 'console';
 
 /**
  * Define the type of the props field for a React component
@@ -35,6 +36,7 @@ class App extends React.Component<Props, GameState> {
      * state has type GameState as specified in the class inheritance.
      */
     this.state = { cells: [] }
+      // this.handleKeyPressed = this.handleKeyPressed.bind(this);
   }
 
   /**
@@ -63,7 +65,7 @@ class App extends React.Component<Props, GameState> {
       const json = await response.json();      
       this.currentPlayer = json['currentPlayer'];
       
-       console.log(this.winner);
+      //  console.log(this.winner);
       this.setState({ cells: json['cells'] });
     }
   }
@@ -111,8 +113,18 @@ class App extends React.Component<Props, GameState> {
       this.newGame();
       this.initialized = true;
     }
+          // window.addEventListener("keypress",this.handleKeyPressed,false);
+          window.addEventListener("keydown",this.handleKeyPressed,false);
   }
 
+  handleKeyPressed = async(event)=>{
+      // console.log(`${event.keyCode}`+"Key pressed");
+    
+    const response = await fetch(`/play?keyEvent=${event.keyCode}`)
+    const json = await response.json();            
+    console.log("Calling backend");
+    this.setState({ cells: json['cells'] });
+  }
   /**
    * The only method you must define in a React.Component subclass.
    * @returns the React element via JSX.
@@ -127,13 +139,13 @@ class App extends React.Component<Props, GameState> {
     return (
       <div>
             
-        <div id="board">
+        <div id="board" onKeyPress={this.handleKeyPressed}>
           {this.state.cells.map((cell, i) => this.createCell(cell, i))}
         </div>
         <div id="bottombar">
           <button onClick={/* get the function, not call the function */this.newGame}>New Game</button>
           {/* Exercise: implement Undo function */}
-          <button onClick = {this.undo}> Undo</button>
+          
         </div>
       </div>
     );

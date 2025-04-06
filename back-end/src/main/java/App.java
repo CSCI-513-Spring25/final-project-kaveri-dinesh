@@ -37,7 +37,8 @@ public class App extends NanoHTTPD {
             this.game = new Game();
         } else if (uri.equals("/play")) {
             // e.g., /play?x=1&y=1
-            //this.game = this.game.play(Integer.parseInt(params.get("x")), Integer.parseInt(params.get("y")));
+            // System.out.println("Player entered key");
+            this.game = this.game.play(Integer.parseInt(params.get("keyEvent")));
         }else if(uri.equals("/undo")){
             // this.game=this.game.undo();
             // System.out.println("Calling undo");            
@@ -46,8 +47,7 @@ public class App extends NanoHTTPD {
         GameState gameplay = GameState.forGame(this.game);
         //System.out.println(gameplay);
         return newFixedLengthResponse(gameplay.toString());
-    }
-   
+    }   
 
     public static class Test {
         public String getText() {

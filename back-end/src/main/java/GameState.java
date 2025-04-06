@@ -37,7 +37,7 @@ public class GameState {
             for (int y = 0; y <= 9; y++) {
                 String text = "";
                 if(grid[x][y]=='C')text="C";
-                cells[10 * y + x] = new Cell(x, y, text);
+                cells[10 * x + y] = new Cell(x, y, text);
             }
         }        
         return cells;

@@ -9,13 +9,17 @@ interface Props {
 class BoardCell extends React.Component<Props> {
   render(): React.ReactNode {
     
-    if(this.props.cell.text!='C')
+    if(this.props.cell.text=='P')
     return (
-      <div className={`cell ` }>{this.props.cell.text}</div>
+      <img src={require(".//images//pirateShip.jpg")} alt="Nothing" className={`image `}></img>
     )
-    else 
+    else if(this.props.cell.text=='C')
       return (   
       <img src={require(".//images//ship.jpg")} alt="Nothing" className={`image `}></img>  
+      )
+      else
+      return (
+        <div className={`cell ` }>{this.props.cell.text}</div>
       )
   }
 }

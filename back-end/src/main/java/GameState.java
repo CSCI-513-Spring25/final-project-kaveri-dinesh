@@ -36,7 +36,8 @@ public class GameState {
         for (int x = 0; x <= 9; x++) {
             for (int y = 0; y <= 9; y++) {
                 String text = "";
-                if(grid[x][y]=='C')text="C";
+                if(grid[x][y]!=Character.MIN_VALUE)
+                    text=String.valueOf(grid[x][y]);
                 cells[10 * x + y] = new Cell(x, y, text);
             }
         }        

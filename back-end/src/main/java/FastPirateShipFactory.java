@@ -5,5 +5,4 @@ public class FastPirateShipFactory extends PirateFactory{
         // TODO Auto-generated method stub
         return new FastPirateShip(x,y);
     }
-    
 }

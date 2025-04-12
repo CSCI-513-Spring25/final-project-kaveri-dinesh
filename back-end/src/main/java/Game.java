@@ -14,7 +14,7 @@ public class Game {
             slowPirateFactory = new SlowPirateShipFactory();
             fasPirateFactory = new FastPirateShipFactory(); 
             random = new Random();
-            initializeGrid();        
+            initializeGrid();
     }
     public char[][] initializeGrid(){
         grid=new char[10][10];
@@ -46,7 +46,7 @@ public class Game {
         }
     }    
     public void addPirateShips(){
-        int piratesCount = 3;		
+        int piratesCount = 2;		
         // System.out.println("Adding Pirate Ships");
         while(piratesCount>0)
 		{
@@ -60,7 +60,21 @@ public class Game {
                 ship.addObserver(pirateShip);					
 				piratesCount--;
 			}
-		}        
+		} 
+        piratesCount=2;
+        while(piratesCount>0)
+		{
+			int xCoordinate = random.nextInt(0, 10);
+			int yCoordinate = random.nextInt(0, 10);
+			//Before assigning Pirate ships, Make sure that location is not occupied by some other island/ship 
+			if(grid[xCoordinate][yCoordinate]!='C' && grid[xCoordinate][yCoordinate] != 'P' && grid[xCoordinate][yCoordinate] != 'I')
+			{
+				grid[xCoordinate][yCoordinate] = 'P';		
+                PirateShip pirateShip=fasPirateFactory.getNewPirateShip(xCoordinate, yCoordinate);	
+                ship.addObserver(pirateShip);					
+				piratesCount--;
+			}
+		}         
     }
     public void addIslands(){
         int islandCount = 3;

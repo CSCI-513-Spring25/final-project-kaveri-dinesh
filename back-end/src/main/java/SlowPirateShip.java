@@ -21,16 +21,20 @@ class SlowPirateShip implements PirateShip{
 		int cy = (int)ship.getY();
 		oceanGrid[px][py]=Character.MIN_VALUE;
 		//If Columbus Ship is below the Pirate ship
-		if(px-cx<0 && px+1<10&&px+1>=0&& oceanGrid[px+1][py]!='I'&&oceanGrid[px+1][py]!='P'&&oceanGrid[px+1][py]!='C')
+		if(px-cx<0 && px+1<20&&px+1>=0&& oceanGrid[px+1][py]!='I'&&oceanGrid[px+1][py]!='P'
+		&& oceanGrid[px+1][py]!='Q')
 			px++;
 		// If Columbus Ship is above Pirate ship
-		else if(px-cx>0 && px-1<10&&px-1>=0&&oceanGrid[px-1][py]!='I'&&oceanGrid[px-1][py]!='P'&&oceanGrid[px-1][py]!='C')
+		else if(px-cx>0 && px-1>=0&&oceanGrid[px-1][py]!='I'&&oceanGrid[px-1][py]!='P'
+		&& oceanGrid[px-1][py]!='Q')
 		    px--;
 		//If Columbus ship is towards right side of the Pirate ship
-		if(py-cy<0 && py+1<10&&py+1>=0&& oceanGrid[px][py+1]!='I'&&oceanGrid[px][py+1]!='P'&&oceanGrid[px][py+1]!='C')
+		if(py-cy<0 && py+1<20&&py+1>=0&& oceanGrid[px][py+1]!='I'&&oceanGrid[px][py+1]!='P'
+		&& oceanGrid[px][py+1]!='Q')
 		    py++;		
 		//If Columbus ship is towards left side of the Pirate Ship
-		else if(py-cy>0 && py-1<10&&py-1>=0&&oceanGrid[px][py-1]!='I'&&oceanGrid[px][py-1]!='P'&&oceanGrid[px][py-1]!='C')
+		else if(py-cy>0 && py-1<20&&py-1>=0&&oceanGrid[px][py-1]!='I'&&oceanGrid[px][py-1]!='P'
+		&& oceanGrid[px][py-1]!='Q')
 		    py--;
         pirateLocation.setLocation(px, py);	
 		oceanGrid[(int)pirateLocation.getX()][(int)pirateLocation.getY()]='P';

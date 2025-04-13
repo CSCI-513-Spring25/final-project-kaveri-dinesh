@@ -1,11 +1,15 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 public class Game {
-    private static char[][] grid=new char[10][10];  
+    private static char[][] grid=new char[20][20];  
     private ColumbusShip ship;  
     private Random random;
     PirateFactory slowPirateFactory;
     PirateFactory fasPirateFactory;
+    List<PirateShip>pirateShips;
+    Monster creatures;
     public void updateGrid(int x,int y,char value){
         grid[x][y]=value;        
     }
@@ -15,13 +19,18 @@ public class Game {
             fasPirateFactory = new FastPirateShipFactory(); 
             random = new Random();
             initializeGrid();
+            pirateShips = new ArrayList<>();
+            creatures = new Monster();
+            addCreatures(2);
+    }
+    public boolean containsObject(int x,int y){
+        return grid[x][y]=='C'|| grid[x][y]=='P' || grid[x][y]=='Q'|| grid[x][y]=='I';
     }
     public char[][] initializeGrid(){
-        grid=new char[10][10];
+        grid=new char[20][20];
         for(int i=0;i<grid.length;i++)Arrays.fill(grid[i],Character.MIN_VALUE) ;         
-        grid[ship.getX()][ship.getY()]='C';             
-        addIslands();
-        addPirateShips();
+        grid[ship.getX()][ship.getY()]='C';                    
+        addIslands();        
         return grid;
     }
     public static char[][] getGrid(){        
@@ -35,7 +44,9 @@ public class Game {
         else if(keyEvent==38)ship.moveNorth(this);
         else if(keyEvent==39)ship.moveEast(this);
         else if(keyEvent==40)ship.moveSouth(this);
-        // printPirateLocations();
+        if(pirateShips.size()<4)
+            addPirateShips();
+        creatures.move();     
         return this;
     }
     private void printPirateLocations(){
@@ -45,49 +56,74 @@ public class Game {
             }
         }
     }    
-    public void addPirateShips(){
-        int piratesCount = 2;		
-        // System.out.println("Adding Pirate Ships");
-        while(piratesCount>0)
-		{
-			int xCoordinate = random.nextInt(0, 10);
-			int yCoordinate = random.nextInt(0, 10);
-			//Before assigning Pirate ships, Make sure that location is not occupied by some other island/ship 
-			if(grid[xCoordinate][yCoordinate]!='C' && grid[xCoordinate][yCoordinate] != 'P' && grid[xCoordinate][yCoordinate] != 'I')
+    public void addPirateShips(){        		
+            PirateShip pirateShip;
+            int pirateCount=1;
+            int xCoordinate;
+            int yCoordinate;
+            while(pirateCount>0){
+                 xCoordinate = random.nextInt(0, 2);
+                 if(xCoordinate==0){
+                    xCoordinate=18;yCoordinate=0;
+                 }
+                 else{
+                    xCoordinate=19;yCoordinate=1;
+                 }		                 	
+                if(!containsObject(xCoordinate, yCoordinate) && !(xCoordinate==19&&yCoordinate==0))
 			{
 				grid[xCoordinate][yCoordinate] = 'P';		
-                PirateShip pirateShip=slowPirateFactory.getNewPirateShip(xCoordinate, yCoordinate);	
-                ship.addObserver(pirateShip);					
-				piratesCount--;
-			}
-		} 
-        piratesCount=2;
-        while(piratesCount>0)
-		{
-			int xCoordinate = random.nextInt(0, 10);
-			int yCoordinate = random.nextInt(0, 10);
+                pirateShip=slowPirateFactory.getNewPirateShip(xCoordinate, yCoordinate);	
+                ship.addObserver(pirateShip);	
+                pirateShips.add(pirateShip);
+                pirateCount--;                
+			}    
+            }
 			//Before assigning Pirate ships, Make sure that location is not occupied by some other island/ship 
-			if(grid[xCoordinate][yCoordinate]!='C' && grid[xCoordinate][yCoordinate] != 'P' && grid[xCoordinate][yCoordinate] != 'I')
+			  pirateCount=1;
+              while(pirateCount>0){
+                xCoordinate = random.nextInt(0, 20);
+			 yCoordinate = 10;
+			//Before assigning Pirate ships, Make sure that location is not occupied by some other island/ship 
+			if(!containsObject(xCoordinate, yCoordinate) &&!(xCoordinate==19&&yCoordinate==0))
 			{
 				grid[xCoordinate][yCoordinate] = 'P';		
-                PirateShip pirateShip=fasPirateFactory.getNewPirateShip(xCoordinate, yCoordinate);	
-                ship.addObserver(pirateShip);					
-				piratesCount--;
+                pirateShip=fasPirateFactory.getNewPirateShip(xCoordinate, yCoordinate);	
+                ship.addObserver(pirateShip);	
+                pirateShips.add(pirateShip);
+                pirateCount--;
 			}
+            }  	
+            		 
 		}         
-    }
     public void addIslands(){
         int islandCount = 3;
         Random random = new Random();
         while(islandCount>0){
-            int xCoordinate = random.nextInt(0, 10);
-			int yCoordinate = random.nextInt(0, 10);
+            int xCoordinate = random.nextInt(0, 20);
+			int yCoordinate = random.nextInt(0, 20);
 			//Before assigning Pirate ships, Make sure that location is not occupied by some other island/ship 
-			if(grid[xCoordinate][yCoordinate]!='C' && grid[xCoordinate][yCoordinate] != 'P' && grid[xCoordinate][yCoordinate] != 'I')
+			if(!containsObject(xCoordinate, yCoordinate) && !(xCoordinate==19&&yCoordinate==0))
 			{
 				grid[xCoordinate][yCoordinate] = 'I';
 				islandCount--;
 			}
+        }
+        grid[19][0]='Q';
+        System.out.println("Added Islands");
+    }
+    public void addCreatures(int monsterCount)
+    {
+        while(monsterCount>0)
+        {
+            int xCoordinate = random.nextInt(0,20);
+            int yCoordinate = random.nextInt(0,20);
+            if(!this.containsObject(xCoordinate, yCoordinate)&&!(xCoordinate==19&&yCoordinate==0)
+            &&xCoordinate>=16&&xCoordinate<=19&&yCoordinate>=8&&yCoordinate<=11&&grid[xCoordinate][yCoordinate]!='M')
+            {
+                creatures.addMonster(new Shark(xCoordinate,yCoordinate));
+                grid[xCoordinate][yCoordinate]='M';
+                monsterCount--;
+            }
         }
     }
 }

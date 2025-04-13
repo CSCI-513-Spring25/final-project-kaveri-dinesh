@@ -5,8 +5,9 @@ public class ColumbusShip extends Observable{
     private Point2D coordinate;  
     private Random random;  
     public ColumbusShip(){
-        random=new Random();
-        coordinate=new Point2D.Float(random.nextInt(0,10),random.nextInt(0,10));
+        // random=new Random();
+        // coordinate=new Point2D.Float(random.nextInt(0,10),random.nextInt(0,10));
+        coordinate = new Point2D.Float(19,19);
     }
     public int getX(){
         return (int)coordinate.getX();
@@ -23,7 +24,7 @@ public class ColumbusShip extends Observable{
         char[][] grid=game.getGrid();
         int xCoordinate = getX();
         int yCoordinate = getY();        
-        if(yCoordinate+1<10){
+        if(yCoordinate+1<20&&!game.containsObject(xCoordinate, yCoordinate+1)){
             game.updateGrid(xCoordinate, yCoordinate, ' ');
             game.updateGrid(xCoordinate, yCoordinate+1, 'C');
             setCoordinate(new Point2D.Float(xCoordinate,yCoordinate+1));            
@@ -34,7 +35,7 @@ public class ColumbusShip extends Observable{
         char[][] grid=game.getGrid();
         int xCoordinate = getX();
         int yCoordinate = getY();        
-        if(yCoordinate-1>=0){
+        if(yCoordinate-1>=0 && !game.containsObject(xCoordinate, yCoordinate-1)){
             game.updateGrid(xCoordinate, yCoordinate, ' ');
             game.updateGrid(xCoordinate, yCoordinate-1, 'C');
             setCoordinate(new Point2D.Float(xCoordinate,yCoordinate-1));
@@ -44,7 +45,7 @@ public class ColumbusShip extends Observable{
         char[][] grid=game.getGrid();
         int xCoordinate = getX();
         int yCoordinate = getY();        
-        if(xCoordinate-1>=0){
+        if(xCoordinate-1>=0 && !game.containsObject(xCoordinate-1, yCoordinate)){
             game.updateGrid(xCoordinate, yCoordinate, ' ');
             game.updateGrid(xCoordinate-1, yCoordinate, 'C');
             setCoordinate(new Point2D.Float(xCoordinate-1,yCoordinate));
@@ -54,7 +55,7 @@ public class ColumbusShip extends Observable{
         char[][] grid=game.getGrid();
         int xCoordinate = getX();
         int yCoordinate = getY();        
-        if(xCoordinate+1<=9){
+        if(xCoordinate+1<=19 && !game.containsObject(xCoordinate+1, yCoordinate)){
             game.updateGrid(xCoordinate, yCoordinate, ' ');
             game.updateGrid(xCoordinate+1, yCoordinate, 'C');
             setCoordinate(new Point2D.Float(xCoordinate+1,yCoordinate));

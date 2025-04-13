@@ -20,6 +20,14 @@ class BoardCell extends React.Component<Props> {
         return (
           <img src={require(".//images//island.jpg")} alt="Nothing" className={`image `}></img>  
         )
+      else if(this.props.cell.text=='Q')
+        return (
+          <img src={require(".//images//pirateIsland.jpg")} alt="Nothing" className={`image `}></img>  
+        )
+        else if(this.props.cell.text=='M')
+          return (
+            <img src={require(".//images//shark.jpg")} alt="Nothing" className={`image `}></img>  
+          )
       else
       return (
         <div className={`cell ` }>{this.props.cell.text}</div>

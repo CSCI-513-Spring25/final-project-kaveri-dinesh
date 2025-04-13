@@ -31,14 +31,14 @@ public class GameState {
     }
 
     private static Cell[] getCells(Game game) {
-        Cell cells[] = new Cell[100];
+        Cell cells[] = new Cell[400];
         char[][] grid=game.getGrid();
-        for (int x = 0; x <= 9; x++) {
-            for (int y = 0; y <= 9; y++) {
+        for (int x = 0; x <= 19; x++) {
+            for (int y = 0; y <= 19; y++) {
                 String text = "";
                 if(grid[x][y]!=Character.MIN_VALUE)
                     text=String.valueOf(grid[x][y]);
-                cells[10 * x + y] = new Cell(x, y, text);
+                cells[20 * x + y] = new Cell(x, y, text);
             }
         }        
         return cells;

@@ -13,7 +13,10 @@ class SlowPirateShip implements PirateShip{
             ColumbusShip columbusShip=(ColumbusShip)ship;
             movePirateShip(Game.getGrid(),columbusShip);
         }
-    }  
+    }
+	public Point2D getPirateLocation(){
+		return this.pirateLocation;
+	}  
     public void movePirateShip(char[][] oceanGrid,ColumbusShip ship){
         int px = (int)pirateLocation.getX();
 		int py = (int)pirateLocation.getY();
@@ -38,5 +41,6 @@ class SlowPirateShip implements PirateShip{
 		    py--;
         pirateLocation.setLocation(px, py);	
 		oceanGrid[(int)pirateLocation.getX()][(int)pirateLocation.getY()]='P';
+		System.out.println("Updating slow pirate location: x: "+ px+", py: "+py);
     }
 }

@@ -10,8 +10,9 @@ public class Game {
     PirateFactory fasPirateFactory;
     List<PirateShip>pirateShips;
     Monster creatures;
+    String winner;
     public void updateGrid(int x,int y,char value){
-        grid[x][y]=value;        
+        grid[x][y]=value;
     }
     public Game(){         
             if(ship==null)ship=new ColumbusShip();
@@ -26,12 +27,25 @@ public class Game {
     public boolean containsObject(int x,int y){
         return grid[x][y]=='C'|| grid[x][y]=='P' || grid[x][y]=='Q'|| grid[x][y]=='I';
     }
+    public List<PirateShip> getPirateShips()
+    {
+        return this.pirateShips;
+    }
     public char[][] initializeGrid(){
         grid=new char[20][20];
         for(int i=0;i<grid.length;i++)Arrays.fill(grid[i],Character.MIN_VALUE) ;         
         grid[ship.getX()][ship.getY()]='C';                    
         addIslands();        
         return grid;
+    }
+    public void setWinner(String winner){
+        this.winner = winner;
+    }
+    public void setColumbusShip(ColumbusShip ship){
+        this.ship=ship;
+    }
+    public String getWinner(){
+        return this.winner;
     }
     public static char[][] getGrid(){        
         return grid;
@@ -40,22 +54,17 @@ public class Game {
         return ship;
     }
     public Game play(int keyEvent){
-        if(keyEvent==37)ship.moveWest(this);
+        if(winner==null){
+            if(keyEvent==37)ship.moveWest(this);
         else if(keyEvent==38)ship.moveNorth(this);
         else if(keyEvent==39)ship.moveEast(this);
         else if(keyEvent==40)ship.moveSouth(this);
         if(pirateShips.size()<4)
             addPirateShips();
-        creatures.move();     
-        return this;
-    }
-    private void printPirateLocations(){
-        for(int i=0;i<=9;i++){
-            for(int j=0;j<10;j++){
-                if(grid[i][j]=='P')System.out.println("X: "+i+", Y: "+j);
-            }
+        creatures.move(this);             
         }
-    }    
+        return this;
+    }      
     public void addPirateShips(){        		
             PirateShip pirateShip;
             int pirateCount=1;
@@ -92,8 +101,7 @@ public class Game {
                 pirateShips.add(pirateShip);
                 pirateCount--;
 			}
-            }  	
-            		 
+            }             		 
 		}         
     public void addIslands(){
         int islandCount = 3;
@@ -108,8 +116,7 @@ public class Game {
 				islandCount--;
 			}
         }
-        grid[19][0]='Q';
-        System.out.println("Added Islands");
+        grid[19][0]='Q';        
     }
     public void addCreatures(int monsterCount)
     {

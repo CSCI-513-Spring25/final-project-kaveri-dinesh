@@ -1,3 +1,3 @@
 interface Creature {
-    void move();
+    void move(Game game);
 }

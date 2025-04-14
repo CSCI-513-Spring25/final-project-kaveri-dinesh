@@ -15,8 +15,8 @@ class Monster implements Creature{
         sharks.add(creature);
     }
     @Override
-    public void move() {
+    public void move(Game game) {
         // TODO Auto-generated method stub
-        for(Creature creature: sharks)creature.move();
+        for(Creature creature: sharks)creature.move(game);
     }
 }

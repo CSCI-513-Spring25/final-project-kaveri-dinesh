@@ -25,8 +25,9 @@ public class ColumbusShip extends Observable{
         int xCoordinate = getX();
         int yCoordinate = getY();        
         if(yCoordinate+1<20&&!game.containsObject(xCoordinate, yCoordinate+1)){
+            if(grid[xCoordinate][yCoordinate+1]=='T')game.setWinner("Columbus");
             game.updateGrid(xCoordinate, yCoordinate, ' ');
-            game.updateGrid(xCoordinate, yCoordinate+1, 'C');
+            game.updateGrid(xCoordinate, yCoordinate+1, 'C');            
             setCoordinate(new Point2D.Float(xCoordinate,yCoordinate+1));            
         }
     }
@@ -36,6 +37,7 @@ public class ColumbusShip extends Observable{
         int xCoordinate = getX();
         int yCoordinate = getY();        
         if(yCoordinate-1>=0 && !game.containsObject(xCoordinate, yCoordinate-1)){
+            if(grid[xCoordinate][yCoordinate-1]=='T')game.setWinner("Columbus");
             game.updateGrid(xCoordinate, yCoordinate, ' ');
             game.updateGrid(xCoordinate, yCoordinate-1, 'C');
             setCoordinate(new Point2D.Float(xCoordinate,yCoordinate-1));
@@ -46,6 +48,7 @@ public class ColumbusShip extends Observable{
         int xCoordinate = getX();
         int yCoordinate = getY();        
         if(xCoordinate-1>=0 && !game.containsObject(xCoordinate-1, yCoordinate)){
+            if(grid[xCoordinate-1][yCoordinate]=='T')game.setWinner("Columbus");
             game.updateGrid(xCoordinate, yCoordinate, ' ');
             game.updateGrid(xCoordinate-1, yCoordinate, 'C');
             setCoordinate(new Point2D.Float(xCoordinate-1,yCoordinate));
@@ -56,6 +59,7 @@ public class ColumbusShip extends Observable{
         int xCoordinate = getX();
         int yCoordinate = getY();        
         if(xCoordinate+1<=19 && !game.containsObject(xCoordinate+1, yCoordinate)){
+            if(grid[xCoordinate+1][yCoordinate]=='T')game.setWinner("Columbus");
             game.updateGrid(xCoordinate, yCoordinate, ' ');
             game.updateGrid(xCoordinate+1, yCoordinate, 'C');
             setCoordinate(new Point2D.Float(xCoordinate+1,yCoordinate));

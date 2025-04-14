@@ -14,6 +14,9 @@ class FastPirateShip implements PirateShip{
             movePirateShip(Game.getGrid(),columbusShip);
         }        
     }
+    public Point2D getPirateLocation(){
+        return this.pirateLocation;
+    }
     @Override
     public void movePirateShip(char[][] oceanGrid, ColumbusShip ship) {
         // TODO Auto-generated method stub

@@ -45,7 +45,7 @@ class Shark extends Monster{
             kill(game,xCoordinate,yCoordinate,grid);
             location = new Point2D.Float(xCoordinate,yCoordinate);
             grid[xCoordinate][yCoordinate]='M';
-            System.out.println("Updaing shark location: X: "+xCoordinate+", Y: "+yCoordinate);
+            // System.out.println("Updaing shark location: X: "+xCoordinate+", Y: "+yCoordinate);
         }        
     }
     Shark(int x,int y){
@@ -55,7 +55,7 @@ class Shark extends Monster{
         List<PirateShip>pirateShips=game.getPirateShips();
         if(grid[x][y]=='P')
         {
-            System.out.println("Killing Pirate with coordinates: X: "+x+", Y: "+y);
+            // System.out.println("Killing Pirate with coordinates: X: "+x+", Y: "+y);
             PirateShip pirate = pirateShips.stream().filter(p->(p.getPirateLocation().getX()==x&&p.getPirateLocation().getY()==y)).collect(Collectors.toList()).get(0);
             game.getColumbusShip().deleteObserver(pirate);
             pirateShips.remove(pirate);
@@ -65,7 +65,7 @@ class Shark extends Monster{
         {
             game.setWinner("Shark");  
             game.setColumbusShip(null);  
-            System.out.println("Killing Columbus Ship");                                
+            // System.out.println("Killing Columbus Ship");                                
         }
     }
 }
